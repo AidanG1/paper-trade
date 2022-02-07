@@ -18,6 +18,7 @@
   },
   "type": "module",
   "dependencies": {
-    "spaper": "^0.3.6"
+    "spaper": "^0.3.6",
+    "svelte-frappe-charts": "^1.9.1"
   }
 }
