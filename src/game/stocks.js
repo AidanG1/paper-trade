@@ -32,7 +32,7 @@ export function get_price(stock, market_day) {
         price_change = correlated_market
     }
     stock.price_change = price_change
-    price = price_change * stock.current_price
+    price =(price_change * stock.current_price).toFixed(2)
     stock.current_price = price
     stock.price_history.push(price)
 }

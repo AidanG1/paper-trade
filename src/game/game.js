@@ -5,6 +5,5 @@ export function play_game(stocks) {
     for (let stock of stocks) {
         get_price(stock, market_day)
     }
-    console.log(stocks)
     return stocks
 }
