@@ -10,24 +10,24 @@
 		return stocks.map((stock) => stock.price_history);
 	}
 
-	function get_tickers(stocks) {
-		return stocks.map((stock) => stock.ticker);
+	function get_stock_info(stocks) {
+		return stocks.map((stock) => {
+			return { ticker: stock.ticker, company: stock.company };
+		});
 	}
 
 	let stocks = [...stock_data];
 	stocks.forEach((e) => (e = Object.assign({}, e)));
 	stocks = play_game(stocks);
 	let prices = get_prices(stocks);
-	let tickers = get_tickers(stocks);
+	let stock_info = get_stock_info(stocks);
 	let times_to_run = 29; // already ran once
 	let x = 0;
 	onMount(() => {
 		let intervalID = setInterval(function () {
 			stocks = play_game(stocks);
 			prices = [...get_prices(stocks)];
-			prices = prices;
-			tickers = [...get_tickers(stocks)];
-			tickers = tickers;
+			stock_info = [...get_stock_info(stocks)];
 			if (++x === times_to_run) {
 				window.clearInterval(intervalID);
 			}
@@ -39,11 +39,15 @@
 </script>
 
 <main>
-	<h1>Welcome to Paper Trading</h1>
+	<h2>Welcome to Paper Trading</h2>
 	<InfoModal />
-	{#each tickers as ticker, index}
-		<Chart prices={prices[index]} {ticker} />
-	{/each}
+	<div>
+		{#each stock_info as info, index}
+			<div class="stock_div">
+				<Chart prices={prices[index]} stock_info={info} />
+			</div>
+		{/each}
+	</div>
 </main>
 
 <style>
@@ -51,11 +55,11 @@
 		padding: 1vw;
 	}
 
-	:global(#chart_div) {
-		width: 10vw;
-		height: 10vh;
+	:global(.stock_div) {
+		display: inline-block;
 	}
 	h1,
+	h2,
 	InfoModal {
 		display: inline-block;
 	}

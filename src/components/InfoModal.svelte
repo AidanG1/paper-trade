@@ -11,7 +11,7 @@
 		>
 	</p>
 	<p>
-		Based off <a href="https://github.com/davjhan/paper-trader-game" target="_blank"
+		Based off <a href="https://paper-trader.davjhan.com/" target="_blank"
 			>David Han's game</a
 		>
 	</p>

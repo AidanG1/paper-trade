@@ -2,7 +2,7 @@
 	import SkApex from './SKApex.svelte';
 
 	export let prices = [];
-	export let ticker = [];
+	export let stock_info = {};
 	export let height = 300;
 	export let width = 500;
 
@@ -36,7 +36,7 @@
 		colors: [prices[prices.length - 1] > prices[0] ? '#6aa84f' : '##cc0000'],
 		series: [
 			{
-				name: ticker,
+				name: stock_info.ticker,
 				data: prices
 			}
 		],
@@ -49,7 +49,7 @@
 			curve: 'straight'
 		},
 		title: {
-			text: ticker
+			text: `${stock_info.ticker} (${stock_info.company})`
 		},
 		subtitle: {
 			text: subtitle,
