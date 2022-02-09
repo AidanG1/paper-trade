@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { stock_data } from '../game/stocks';
 	import { play_game } from '../game/game';
 	import Chart from '../components/Chart.svelte';
@@ -19,7 +19,7 @@
 	stocks = play_game(stocks);
 	let prices = get_prices(stocks);
 	let tickers = get_tickers(stocks);
-	let times_to_run = 30;
+	let times_to_run = 29; // already ran once
 	let x = 0;
 	onMount(() => {
 		let intervalID = setInterval(function () {
@@ -32,20 +32,17 @@
 				window.clearInterval(intervalID);
 			}
 		}, 2000);
+		// onDestroy(() => {
+		// 	window.clearInterval(intervalID);
+		// });
 	});
 </script>
 
 <main>
 	<h1>Welcome to Paper Trading</h1>
 	<InfoModal />
-	<p>
-		{prices}
-		{tickers}
-	</p>
 	{#each tickers as ticker, index}
-		<div class="chart_div">
-			<Chart prices={prices[index]} {ticker} time={x} />
-		</div>
+		<Chart prices={prices[index]} {ticker} />
 	{/each}
 </main>
 
