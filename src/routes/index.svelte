@@ -42,7 +42,11 @@
 		{prices}
 		{tickers}
 	</p>
-	<MultiChart {prices} {tickers} time={x} />
+	{#each tickers as ticker, index}
+		<div class="chart_div">
+			<Chart prices={prices[index]} {ticker} time={x} />
+		</div>
+	{/each}
 </main>
 
 <style>
@@ -50,6 +54,10 @@
 		padding: 1vw;
 	}
 
+	:global(#chart_div) {
+		width: 10vw;
+		height: 10vh;
+	}
 	h1,
 	InfoModal {
 		display: inline-block;
