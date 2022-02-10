@@ -20,8 +20,11 @@ export function get_price(stock, market_day) {
     // stock correlation of 1 means that the stock moves exactly with the market
     // if the stock correlation is less than one there is added randomness.
     // correlation multiplier acts similar to beta in the real stock market
-    let random_correlation = 1 + (randn_bm() + stock.boost) / stock.correlation / 100
+    let random_correlation = 1 + (randn_bm() + stock.boost) / (stock.correlation) / 5
     let correlated_market = 1 + (market_day - 1) * (random_correlation * stock.correlation_multiplier)
+    if (correlated_market <= 0) {
+        correlated_market = 0.02
+    }
     let price = stock.current_price
     let price_change = 0
     if (correlated_market > 1) {
@@ -32,15 +35,31 @@ export function get_price(stock, market_day) {
         price_change = correlated_market
     }
     stock.price_change = price_change
-    price =(price_change * stock.current_price).toFixed(2)
+    price = (price_change * stock.current_price).toFixed(2)
+    if (price < 0.05) {
+        price = 0.05
+    }
     stock.current_price = price
     stock.price_history.push(price)
 }
 
-export let stock_data = [
+export const stock_data = [
     {
         company: 'AT&T',
         ticker: 'T',
+        sector: 'Communications',
+        current_price: 10,
+        price_history: [10],
+        price_change: 0,
+        volatility: 1.5,
+        correlation_multiplier: 1.5,
+        correlation: 0.6,
+        boost: 0,
+        boost_regressor: 0.01,
+    },
+    {
+        company: 'T-Mobile',
+        ticker: 'TMUS',
         sector: 'Communications',
         current_price: 10,
         price_history: [10],
@@ -61,8 +80,8 @@ export let stock_data = [
         volatility: 2.5,
         correlation_multiplier: 1.5,
         correlation: 0.45,
-        boost: 0.04,
-        boost_regressor: 0.03,
+        boost: 0.03,
+        boost_regressor: 0.025,
     },
     {
         company: 'GameStop',
@@ -74,7 +93,7 @@ export let stock_data = [
         volatility: 5,
         correlation_multiplier: 1.5,
         correlation: 0.01,
-        boost: 0.03,
-        boost_regressor: 0.03,
+        boost: 0.04,
+        boost_regressor: 0.04,
     },
 ]

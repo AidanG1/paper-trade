@@ -1,10 +1,9 @@
 <script>
 	import SkApex from './SKApex.svelte';
+	import { onMount } from 'svelte';
 
 	export let prices = [];
 	export let stock_info = {};
-	export let height = 300;
-	export let width = 500;
 
 	let price_change = 0;
 	let current_price = 0;
@@ -20,15 +19,16 @@
 	function update_data(prices) {
 		options.series.data = prices;
 		options.xaxis.categories = [...Array(prices.length).keys()];
-		options.colors = [prices[prices.length - 1] > prices[0] ? '#6aa84f' : '#cc0000'];
+		options.colors = [current_price > prices[0] ? '#6aa84f' : '#cc0000'];
 		options.subtitle.text = subtitle;
+		options.subtitle.style.color = current_price > previous_price ? '#6aa84f' : '#cc0000';
 		options = options;
 	}
 	let options = {
 		chart: {
 			type: 'area',
-			height: height,
-			width: width,
+			// height: height,
+			// width: width,
 			zoom: {
 				enabled: false
 			}
@@ -74,6 +74,7 @@
 			// }
 		}
 	};
+	// onMount(() => {});
 </script>
 
 <div>
