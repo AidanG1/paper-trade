@@ -7,6 +7,7 @@ export let balance = spring(100);
 export let dark_theme = writable(true)
 export let purchase_size = writable(1);
 export let delay = spring(2000)
+export let day_counter = spring(0)
 export let times_to_run = spring(29)
 export let game_state = writable({ started: false, in_progress: false, ended: false })
 const stock_info = {
