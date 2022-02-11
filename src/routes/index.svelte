@@ -1,6 +1,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { fly } from 'svelte/transition';
+	import { draggable } from '@neodrag/svelte';
 	// import { stock_data } from '../game/stocks';
 	import { stocks } from '../game/stockStore';
 	import { play_game } from '../game/game';
@@ -9,26 +10,11 @@
 	import InfoModal from '../components/InfoModal.svelte';
 	import Portfolio from '../components/Portfolio.svelte';
 	import { Button } from 'spaper';
-
-	// function get_prices(stocks) {
-	// 	return stocks.map((stock) => stock.price_history);
-	// }
-
-	// function get_stock_info(stocks) {
-	// 	return stocks.map((stock) => {
-	// 		return { ticker: stock.ticker, company: stock.company };
-	// 	});
-	// }
-
-	// let stocks = [...stock_data];
-	// stocks.forEach((e) => (e = Object.assign({}, e)));
 	let run_game = (times_to_run, delay_ms) => {
 		return;
 	};
 	let started = false;
 	let in_progress = false;
-	// let prices = get_prices(stocks);
-	// let stock_info = get_stock_info(stocks);
 	onMount(() => {
 		run_game = (times_to_run, delay_ms) => {
 			if (!in_progress) {
@@ -49,21 +35,23 @@
 </script>
 
 <main>
-	<h2>Welcome to Paper Trading</h2>
-	<div class="inline">
-		<InfoModal />
+	<div class="border border-warning inline-block" use:draggable={{}}>
+		<h2>Welcome to Paper Trading</h2>
+		<div class="inline-block">
+			<InfoModal />
+		</div>
+		<Button on:click={() => run_game(29, 2000)}>Start Game</Button>
 	</div>
-	<Button on:click={() => run_game(29, 2000)}>Start Game</Button>
 	{#if started}
-		<div>
+		<div use:draggable={{}}>
 			<Controls />
 		</div>
-		<div>
+		<div use:draggable={{}}>
 			<Portfolio />
 		</div>
 		<div in:fly>
 			{#each Object.keys($stocks) as stock}
-				<div class="stock_div stock_div_3">
+				<div class="stock_div stock_div_3 border border-warning" use:draggable={{}}>
 					<Dashboard ticker={stock} />
 				</div>
 			{/each}
@@ -78,7 +66,6 @@
 
 	:global(.stock_div) {
 		display: inline-block;
-		border: medium solid yellow;
 	}
 	:global(.stock_div_1) {
 		width: 98vw;
@@ -100,7 +87,7 @@
 		display: inline-block;
 		margin-top: 0;
 	}
-	.inline {
+	:global(.inline-block) {
 		display: inline-block;
 	}
 </style>

@@ -1,6 +1,6 @@
 <script>
 	import SkApex from './SKApex.svelte';
-	import { stocks } from '../game/stockStore';
+	import { dark_theme, stocks } from '../game/stockStore';
 	import { onMount } from 'svelte';
 
 	export let ticker = '';
@@ -55,7 +55,7 @@
 			// }
 		}
 	};
-	function update_data(stock) {
+	function update_data(stock, dark_theme) {
 		options.title.text = `${ticker} (${stock.company})`;
 		options.series[0].data = stock.price_history;
 		options.xaxis.categories = [...Array(stock.price_history.length).keys()];
@@ -64,6 +64,7 @@
 				? '#6aa84f'
 				: '#cc0000'
 		];
+		options.theme.mode = dark_theme ? 'dark' : 'light'
 		options.subtitle.text = `Current Price: $${stock.current_price}, Change: ${(
 			100 *
 			(stock.price_change - 1)
@@ -72,7 +73,7 @@
 		options = options;
 	}
 	$: {
-		update_data($stocks[ticker]);
+		update_data($stocks[ticker], $dark_theme);
 	}
 	// stocks.subscribe((value) => {
 	// 	console.log(value);

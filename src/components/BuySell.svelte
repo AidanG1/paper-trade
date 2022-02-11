@@ -1,9 +1,10 @@
 <script>
-	import { Button } from 'spaper';
+	import { Alert, Button } from 'spaper';
 	import { purchase_size, balance, portfolio, stocks } from '../game/stockStore';
 	export let ticker = '';
 	// export let price = 10;
 	let ps = 0;
+	let alert_message = '';
 	let share = 'share';
 	$: {
 		if ($purchase_size === 1) {
@@ -21,6 +22,11 @@
 			} else {
 				$portfolio[ticker] = amount;
 			}
+		} else {
+			alert_message = `You cannot afford to buy ${amount} ${share} of ${ticker}`;
+			setTimeout(() => {
+				alert_message = '';
+			}, 3000);
 		}
 	}
 	function sell(amount) {
@@ -30,10 +36,18 @@
 			if ($portfolio[ticker] === 0) {
 				delete $portfolio[ticker];
 			}
+		} else {
+			alert_message = `You do not own ${amount} ${share} of ${ticker}`;
+			setTimeout(() => {
+				alert_message = '';
+			}, 3000);
 		}
 	}
 </script>
 
+{#if alert_message}
+	<Alert type="danger" dismissible>{alert_message}</Alert>
+{/if}
 <Button on:click={buy($purchase_size)} type="success">
 	Buy {$purchase_size}
 	{share} of {ticker}

@@ -2,6 +2,7 @@ import { writable, readable, derived } from 'svelte/store'
 
 export let portfolio = writable({});
 export let balance = writable(100);
+export let dark_theme = writable(true)
 export let purchase_size = writable(1);
 let stock_info = {
     T: {
