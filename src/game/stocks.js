@@ -1,5 +1,4 @@
-import cloneDeep from 'lodash/cloneDeep';
-
+import cloneDeep from 'lodash/cloneDeep.js';
 // https://stackoverflow.com/a/36481059
 // Standard Normal variate using Box-Muller transform.
 function randn_bm() {

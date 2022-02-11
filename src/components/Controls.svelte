@@ -37,6 +37,3 @@
 	</Select>
 	<Input label="Default Purchase Amount" type="number" bind:value={purchase_size_input} min="1" />
 </div>
-
-<style>
-</style>
