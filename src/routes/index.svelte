@@ -1,7 +1,8 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { fly } from 'svelte/transition';
-	import { stock_data } from '../game/stocks';
+	// import { stock_data } from '../game/stocks';
+	import { stocks } from '../game/stockStore';
 	import { play_game } from '../game/game';
 	import Dashboard from '../components/Dashboard.svelte';
 	import Controls from '../components/Controls.svelte';
@@ -9,37 +10,40 @@
 	import Portfolio from '../components/Portfolio.svelte';
 	import { Button } from 'spaper';
 
-	function get_prices(stocks) {
-		return stocks.map((stock) => stock.price_history);
-	}
+	// function get_prices(stocks) {
+	// 	return stocks.map((stock) => stock.price_history);
+	// }
 
-	function get_stock_info(stocks) {
-		return stocks.map((stock) => {
-			return { ticker: stock.ticker, company: stock.company };
-		});
-	}
+	// function get_stock_info(stocks) {
+	// 	return stocks.map((stock) => {
+	// 		return { ticker: stock.ticker, company: stock.company };
+	// 	});
+	// }
 
-	let stocks = [...stock_data];
-	stocks.forEach((e) => (e = Object.assign({}, e)));
+	// let stocks = [...stock_data];
+	// stocks.forEach((e) => (e = Object.assign({}, e)));
 	let run_game = (times_to_run, delay_ms) => {
 		return;
 	};
 	let started = false;
-	let prices = get_prices(stocks);
-	let stock_info = get_stock_info(stocks);
+	let in_progress = false;
+	// let prices = get_prices(stocks);
+	// let stock_info = get_stock_info(stocks);
 	onMount(() => {
 		run_game = (times_to_run, delay_ms) => {
-			started = true;
-			stocks = play_game(stocks);
-			let x = 0;
-			let intervalID = setInterval(() => {
-				stocks = play_game(stocks);
-				prices = [...get_prices(stocks)];
-				stock_info = [...get_stock_info(stocks)];
-				if (++x === times_to_run) {
-					window.clearInterval(intervalID);
-				}
-			}, delay_ms);
+			if (!in_progress) {
+				started = true;
+				in_progress = true;
+				$stocks = play_game($stocks);
+				let x = 0;
+				let intervalID = setInterval(() => {
+					$stocks = play_game($stocks);
+					if (++x === times_to_run) {
+						in_progress = false;
+						window.clearInterval(intervalID);
+					}
+				}, delay_ms);
+			}
 		};
 	});
 </script>
@@ -58,9 +62,9 @@
 			<Portfolio />
 		</div>
 		<div in:fly>
-			{#each stock_info as info, index}
+			{#each Object.keys($stocks) as stock}
 				<div class="stock_div stock_div_3">
-					<Dashboard prices={prices[index]} stock_info={info} />
+					<Dashboard ticker={stock} />
 				</div>
 			{/each}
 		</div>

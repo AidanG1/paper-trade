@@ -3,7 +3,7 @@
 	import { purchase_size } from '../game/stockStore';
 	import { onMount } from 'svelte';
 	let layout_class = 3;
-	let purchase_size_input = $purchase_size.purchase_size;
+	let purchase_size_input = $purchase_size;
 	let change_classes = (layout_class) => {
 		return;
 	};
@@ -11,7 +11,7 @@
 		if (purchase_size_input < 1) {
 			purchase_size_input = 1;
 		}
-		$purchase_size = { purchase_size: purchase_size_input };
+		$purchase_size = purchase_size_input;
 	}
 	$: {
 		change_classes(layout_class);

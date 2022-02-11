@@ -15,11 +15,12 @@ export function get_market_day(volatility_multiplier) {
     return 1 + volatility_multiplier * (randn_bm()) / 40
 }
 
-export function get_price(stock, market_day) {
+export function get_price(stocks, ticker, market_day) {
     // market day is how much the market moves on any given day
     // stock correlation of 1 means that the stock moves exactly with the market
     // if the stock correlation is less than one there is added randomness.
     // correlation multiplier acts similar to beta in the real stock market
+    let stock = stocks[ticker]
     let random_correlation = 1 + (randn_bm() / 2 + stock.boost) / (stock.correlation) / 4
     let correlated_market = 1 + (market_day - 1) * (random_correlation * stock.correlation_multiplier)
     if (correlated_market <= 0) {
@@ -38,11 +39,14 @@ export function get_price(stock, market_day) {
     stock.price_change = price_change
     price = (price_change * stock.current_price).toFixed(2)
     if (price < 1) {
-        stock.boost += 10 * stock.boost_regressor
+        stock.boost += (10 * stock.boost_regressor).toFixed(2)
     }
     if (price < 0.05) {
         price = 0.05
     }
     stock.current_price = price
     stock.price_history.push(price)
+    stock.price_history = (stock.price_history).map(parseFloat)
+    stocks = stocks
+    return stocks
 }
