@@ -46,7 +46,7 @@ export function get_price(stocks, ticker, market_day) {
         price = 0.05
     }
     stock.boost = +(stock.boost.toFixed(2))
-    stock.price_change = +(stock.price_change.toFixed(2))
+    stock.price_change = +(stock.price_change.toFixed(4))
     price = +(price.toFixed(2))
     stock.current_price = price
     stock.price_history.push(price)

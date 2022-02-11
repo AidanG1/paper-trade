@@ -44,7 +44,6 @@
 		}
 	}
 </script>
-
 {#if alert_message}
 	<Alert type="danger" dismissible>{alert_message}</Alert>
 {/if}
