@@ -17,9 +17,8 @@
 	let run_game = (times_to_run, delay_ms) => {
 		return;
 	};
-	let x = 0;
 	function continue_game() {
-		$times_to_run += x;
+		$times_to_run += $day_counter;
 		run_game($times_to_run, $delay);
 	}
 	function new_game() {
@@ -43,7 +42,7 @@
 				let intervalID = setInterval(() => {
 					$stocks = play_game($stocks);
 					$prices = prices_from_stock_store($stocks);
-					if (++$day_counter === times_to_run) {
+					if (++$day_counter >= times_to_run) {
 						$game_state.in_progress = false;
 						$game_state.ended = true;
 						window.clearInterval(intervalID);

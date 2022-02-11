@@ -1,6 +1,6 @@
 <script>
 	import { Select, Switch } from 'spaper';
-	import { dark_theme, times_to_run, delay } from '../game/stockStore';
+	import { dark_theme, times_to_run, delay, started } from '../game/stockStore';
 	import { onMount } from 'svelte';
 	let dark_theme_input = $dark_theme;
 	let change_html = (theme) => {
@@ -22,7 +22,11 @@
 
 	let times_to_run_input = $times_to_run;
 	$: {
-		$times_to_run = times_to_run_input;
+		if ($started) {
+			$times_to_run += times_to_run_input;
+		} else {
+			$times_to_run = times_to_run_input;
+		}
 	}
 	let delay_input = $delay;
 	$: {
