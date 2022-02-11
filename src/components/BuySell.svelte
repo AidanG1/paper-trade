@@ -1,6 +1,6 @@
 <script>
 	import { Alert, Button } from 'spaper';
-	import { purchase_size, balance, portfolio, stocks } from '../game/stockStore';
+	import { purchase_size, balance, portfolio, prices } from '../game/stockStore';
 	export let ticker = '';
 	// export let price = 10;
 	let ps = 0;
@@ -14,7 +14,7 @@
 		}
 	}
 	function buy(amount) {
-		ps = amount * $stocks[ticker].current_price;
+		ps = amount * $prices[ticker];
 		if (ps < $balance) {
 			balance.set($balance - ps);
 			if (ticker in $portfolio) {
@@ -31,7 +31,7 @@
 	}
 	function sell(amount) {
 		if ((ticker in $portfolio) & ($portfolio[ticker] >= amount)) {
-			balance.set((parseFloat($balance) + amount * $stocks[ticker].current_price));
+			balance.set((parseFloat($balance) + amount * $prices[ticker]));
 			$portfolio[ticker] -= amount;
 			if ($portfolio[ticker] === 0) {
 				delete $portfolio[ticker];

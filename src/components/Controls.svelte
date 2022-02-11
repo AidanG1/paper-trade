@@ -28,7 +28,7 @@
 	});
 </script>
 
-<div class="form-group border border-warning inline-block">
+<div class="form-group">
 	<Select label="Chart Size" bind:value={layout_class}>
 		<option value={4}>Small</option>
 		<option value={3}>Medium</option>

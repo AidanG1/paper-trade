@@ -1,8 +1,8 @@
 <script>
 	import { Table } from 'spaper';
-	import { portfolio, balance, net_worth, stocks } from '../game/stockStore';
+	import { portfolio, balance, net_worth, prices } from '../game/stockStore';
 	let data = [];
-	function table_stocks(portfolio_stocks, stocks_stocks) {
+	function table_stocks(portfolio_stocks, prices) {
 		data = [];
 		for (let stock in portfolio_stocks) {
 			data = [
@@ -10,13 +10,13 @@
 				{
 					Ticker: stock,
 					Amount: portfolio_stocks[stock],
-					Value: (portfolio_stocks[stock] * $stocks[stock].current_price).toFixed(2)
+					Value: (portfolio_stocks[stock] * prices[stock]).toFixed(2)
 				}
 			];
 		}
 	}
 	$: {
-		table_stocks($portfolio, $stocks);
+		table_stocks($portfolio, $prices);
 	}
 </script>
 

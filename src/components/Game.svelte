@@ -7,10 +7,11 @@
 		stock_data,
 		times_to_run,
 		delay,
-		game_state
+		game_state,
+		prices
 	} from '../game/stockStore';
 	import cloneDeep from 'lodash/cloneDeep.js';
-	import { play_game } from '../game/game';
+	import { play_game, prices_from_stock_store } from '../game/game';
 	import { Button } from 'spaper';
 	let run_game = (times_to_run, delay_ms) => {
 		return;
@@ -37,8 +38,10 @@
 				$game_state.in_progress = true;
 				$game_state.ended = false;
 				$stocks = play_game($stocks);
+				$prices = prices_from_stock_store($stocks);
 				let intervalID = setInterval(() => {
 					$stocks = play_game($stocks);
+					$prices = prices_from_stock_store($stocks);
 					if (++x === times_to_run) {
 						$game_state.in_progress = false;
 						$game_state.ended = true;

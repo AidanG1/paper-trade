@@ -30,7 +30,7 @@
 	}
 </script>
 
-<div class="form-group border border-warning inline-block">
+<div class="form-group">
 	<Select label="Times to Run" bind:value={times_to_run_input}>
 		<option value={14}>15</option>
 		<option value={29}>30</option>
@@ -48,4 +48,7 @@
 </div>
 
 <style>
+	.form-group {
+		float: left;
+	}
 </style>

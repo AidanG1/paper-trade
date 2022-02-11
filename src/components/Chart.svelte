@@ -69,7 +69,7 @@
 			100 *
 			(stock.price_change - 1)
 		).toFixed(2)}%`;
-		options.subtitle.style.color = stock.price_change > 0 ? '#6aa84f' : '#cc0000';
+		options.subtitle.style.color = stock.price_change - 1 > 0 ? '#6aa84f' : '#cc0000';
 		options = options;
 	}
 	$: {

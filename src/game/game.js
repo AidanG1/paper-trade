@@ -9,3 +9,11 @@ export function play_game(stocks) {
     stocks = stock_object
     return stocks
 }
+
+export function prices_from_stock_store(stocks) {
+    let prices = {}
+    for (let ticker in stocks) {
+        prices[ticker] = stocks[ticker].current_price
+    }
+    return prices
+}

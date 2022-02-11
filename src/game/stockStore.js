@@ -1,5 +1,6 @@
 import { writable, readable, derived } from 'svelte/store'
 import { tweened } from 'svelte/motion';
+import { prices_from_stock_store } from './game'
 import cloneDeep from 'lodash/cloneDeep.js';
 export let portfolio = writable({});
 export let balance = tweened(100.0);
@@ -7,7 +8,7 @@ export let dark_theme = writable(true)
 export let purchase_size = writable(1);
 export let delay = tweened(2000)
 export let times_to_run = tweened(29)
-export let game_state = writable({started: false, in_progress: false, ended: false})
+export let game_state = writable({ started: false, in_progress: false, ended: false })
 const stock_info = {
     T: {
         company: 'AT&T',
@@ -62,12 +63,13 @@ const stock_info = {
         boost_regressor: 0.04,
     },
 }
+export let prices = tweened(prices_from_stock_store(stock_info))
 export let stocks = writable(cloneDeep(stock_info))
 export const stock_data = readable(cloneDeep(stock_info))
-export const net_worth = derived([balance, portfolio, stocks], ([$balance, $portfolio, $stocks]) => {
+export const net_worth = derived([balance, portfolio, prices], ([$balance, $portfolio, $prices]) => {
     let net_worth = parseFloat($balance)
     for (let ticker in $portfolio) {
-        net_worth += parseFloat($stocks[ticker].current_price) * $portfolio[ticker]
+        net_worth += parseFloat($prices[ticker]) * $portfolio[ticker]
     }
     return +(net_worth.toFixed(2))
 });

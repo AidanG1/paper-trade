@@ -19,12 +19,12 @@
 		<Game />
 	</div>
 	{#if !$game_state.in_progress}
-		<div use:draggable={{}}>
+		<div class="border border-warning inline-block" use:draggable={{}}>
 			<Settings />
 		</div>
 	{/if}
 	{#if $game_state.started}
-		<div use:draggable={{}}>
+		<div class="border border-warning inline-block" use:draggable={{}}>
 			<Controls />
 		</div>
 		<div use:draggable={{}}>
@@ -41,10 +41,6 @@
 </main>
 
 <style>
-	main {
-		padding: 1vw;
-	}
-
 	:global(.stock_div) {
 		display: inline-block;
 	}
