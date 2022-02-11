@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import cloneDeep from 'lodash.cloneDeep'
 
 // https://stackoverflow.com/a/36481059
 // Standard Normal variate using Box-Muller transform.
@@ -39,15 +39,18 @@ export function get_price(stocks, ticker, market_day) {
         price_change = correlated_market
     }
     stock.price_change = price_change
-    price = (price_change * stock.current_price).toFixed(2)
+    price = (price_change * stock.current_price)
     if (price < 1) {
-        stock.boost += (10 * stock.boost_regressor).toFixed(2)
+        stock.boost += (10 * stock.boost_regressor)
     }
     if (price < 0.05) {
         price = 0.05
     }
+    stock.boost = +(stock.boost.toFixed(2))
+    stock.price_change = +(stock.price_change.toFixed(2))
+    price = +(price.toFixed(2))
     stock.current_price = price
     stock.price_history.push(price)
-    stock.price_history = (stock.price_history).map(parseFloat)
+    // stock.price_history = (stock.price_history).map(parseFloat)
     return stock
 }

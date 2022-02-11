@@ -16,7 +16,7 @@
 	function buy(amount) {
 		ps = amount * $stocks[ticker].current_price;
 		if (ps < $balance) {
-			$balance = ($balance - ps).toFixed(2);
+			balance.set($balance - ps);
 			if (ticker in $portfolio) {
 				$portfolio[ticker] += amount;
 			} else {
@@ -31,7 +31,7 @@
 	}
 	function sell(amount) {
 		if ((ticker in $portfolio) & ($portfolio[ticker] >= amount)) {
-			$balance = (parseFloat($balance) + amount * $stocks[ticker].current_price).toFixed(2);
+			balance.set((parseFloat($balance) + amount * $stocks[ticker].current_price));
 			$portfolio[ticker] -= amount;
 			if ($portfolio[ticker] === 0) {
 				delete $portfolio[ticker];

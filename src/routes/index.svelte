@@ -3,7 +3,7 @@
 	import { fly } from 'svelte/transition';
 	import { draggable } from '@neodrag/svelte';
 	import { balance, portfolio, stocks, stock_data, times_to_run, delay } from '../game/stockStore';
-	import { cloneDeep } from 'lodash';
+	import cloneDeep from 'lodash.cloneDeep';
 	import { play_game } from '../game/game';
 	import Dashboard from '../components/Dashboard.svelte';
 	import Controls from '../components/Controls.svelte';
@@ -34,7 +34,9 @@
 				started = true;
 				in_progress = true;
 				finished = false;
+				console.log($stocks);
 				$stocks = play_game($stocks);
+				console.log($stocks);
 				let intervalID = setInterval(() => {
 					$stocks = play_game($stocks);
 					if (++x === times_to_run) {
@@ -56,20 +58,17 @@
 		</div>
 		{#if !started}
 			<Button on:click={() => run_game($times_to_run, $delay)}>Start Game</Button>
+		{:else}
+			Day {x + 1} of {$times_to_run + 1}
 		{/if}
 		{#if finished}
 			<Button on:click={() => new_game()}>Start New Game</Button>
-		{/if}
-		{#if finished}
 			<Button on:click={() => continue_game()}>Continue Current Game</Button>
-		{/if}
-		{#if started}
-			Day {x + 1} of {$times_to_run + 1}
 		{/if}
 	</div>
 	{#if started}
 		<div use:draggable={{}}>
-			<Controls in_progress={in_progress} />
+			<Controls {in_progress} />
 		</div>
 		<div use:draggable={{}}>
 			<Portfolio />

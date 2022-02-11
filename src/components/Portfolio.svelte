@@ -21,7 +21,7 @@
 </script>
 
 <div class="border border-warning inline-block">
-	<h4>Net Worth: ${$net_worth}<br />Balance: ${$balance}</h4>
+	<h4>Net Worth: ${$net_worth}<br />Balance: ${$balance.toFixed(2)}</h4>
 	<Table {data} hoverable />
 </div>
 

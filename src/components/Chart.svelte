@@ -60,7 +60,7 @@
 		options.series[0].data = stock.price_history;
 		options.xaxis.categories = [...Array(stock.price_history.length).keys()];
 		options.colors = [
-			stock.current_price > stock.price_history[stock.price_history.length - 1]
+			stock.current_price > stock.price_history[0]
 				? '#6aa84f'
 				: '#cc0000'
 		];
@@ -69,7 +69,7 @@
 			100 *
 			(stock.price_change - 1)
 		).toFixed(2)}%`;
-		options.subtitle.style.color = stock.price_change >= 0 ? '#6aa84f' : '#cc0000';
+		options.subtitle.style.color = stock.price_change > 0 ? '#6aa84f' : '#cc0000';
 		options = options;
 	}
 	$: {

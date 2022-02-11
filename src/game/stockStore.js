@@ -1,12 +1,14 @@
 import { writable, readable, derived } from 'svelte/store'
-import { cloneDeep } from 'lodash';
+import { tweened } from 'svelte/motion';
+import { cubicOut } from 'svelte/easing';
+import cloneDeep from 'lodash.cloneDeep'
 
 export let portfolio = writable({});
-export let balance = writable(100);
+export let balance = tweened(100.0);
 export let dark_theme = writable(true)
 export let purchase_size = writable(1);
-export let delay = writable(2000)
-export let times_to_run = writable(29)
+export let delay = tweened(2000)
+export let times_to_run = tweened(29)
 const stock_info = {
     T: {
         company: 'AT&T',
@@ -68,5 +70,5 @@ export const net_worth = derived([balance, portfolio, stocks], ([$balance, $port
     for (let ticker in $portfolio) {
         net_worth += parseFloat($stocks[ticker].current_price) * $portfolio[ticker]
     }
-    return parseFloat(net_worth).toFixed(2)
+    return +(net_worth.toFixed(2))
 });

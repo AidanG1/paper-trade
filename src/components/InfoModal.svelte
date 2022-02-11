@@ -6,6 +6,9 @@
 <Button on:click={() => (showModal = true)}>?</Button>
 <Modal bind:active={showModal} title="Info">
 	<p>
+		A game to paper trade different stocks with fake money. Created by Aidan Gerber.
+	</p>
+	<p>
 		Featuring a completely draggable UI
 	</p>
 	<p>
