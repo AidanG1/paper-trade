@@ -30,7 +30,7 @@
 			curve: 'straight'
 		},
 		title: {
-			text: ticker
+			text: ticker,
 		},
 		subtitle: {
 			text: '',

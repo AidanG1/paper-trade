@@ -5,6 +5,8 @@ export let portfolio = writable({});
 export let balance = writable(100);
 export let dark_theme = writable(true)
 export let purchase_size = writable(1);
+export let delay = writable(2000)
+export let times_to_run = writable(29)
 const stock_info = {
     T: {
         company: 'AT&T',

@@ -1,7 +1,8 @@
 <script>
 	import { Select, Input, Switch } from 'spaper';
-	import { purchase_size, dark_theme } from '../game/stockStore';
+	import { purchase_size, dark_theme, times_to_run, delay } from '../game/stockStore';
 	import { onMount } from 'svelte';
+	export let in_progress;
 	let layout_class = 3;
 	let purchase_size_input = $purchase_size;
 	let change_classes = (layout_class) => {
@@ -41,15 +42,39 @@
 		};
 		change_classes(2);
 	});
+
+	let times_to_run_input = $times_to_run;
+	$: {
+		$times_to_run = times_to_run_input;
+	}
+	let delay_input = $delay;
+	$: {
+		$delay = delay_input;
+	}
 </script>
 
 <div class="form-group border border-warning inline-block">
 	<Select label="Chart Size" bind:value={layout_class}>
-		<option value={1}>Huge</option>
-		<option value={2}>Large</option>
-		<option value={3}>Medium</option>
 		<option value={4}>Small</option>
+		<option value={3}>Medium</option>
+		<option value={2}>Large</option>
+		<option value={1}>Huge</option>
 	</Select>
+	{#if !in_progress}
+		<Select label="Times to Run" bind:value={times_to_run_input}>
+			<option value={14}>15</option>
+			<option value={29}>30</option>
+			<option value={59}>60</option>
+			<option value={89}>90</option>
+		</Select>
+		<Select label="Day Delay" bind:value={delay_input}>
+			<option value={500}>Very Short</option>
+			<option value={1000}>Short</option>
+			<option value={2000}>Normal</option>
+			<option value={3500}>Long</option>
+			<option value={6000}>Very Long</option>
+		</Select>
+	{/if}
 	<Switch bind:checked={dark_theme_input}>Theme</Switch>
 	<Input label="Default Purchase Amount" type="number" bind:value={purchase_size_input} min="1" />
 </div>

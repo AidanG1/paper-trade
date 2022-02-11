@@ -2,7 +2,7 @@
 	import { onMount, onDestroy } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { draggable } from '@neodrag/svelte';
-	import { balance, portfolio, stocks, stock_data } from '../game/stockStore';
+	import { balance, portfolio, stocks, stock_data, times_to_run, delay } from '../game/stockStore';
 	import { cloneDeep } from 'lodash';
 	import { play_game } from '../game/game';
 	import Dashboard from '../components/Dashboard.svelte';
@@ -17,18 +17,16 @@
 	let in_progress = false;
 	let finished = false;
 	let x = 0;
-	let times_to_run = 29;
-	let delay = 2000;
 	function continue_game() {
-		times_to_run += x;
-		run_game(times_to_run, delay);
+		$times_to_run += x;
+		run_game($times_to_run, $delay);
 	}
 	function new_game() {
 		$balance = 100;
 		$portfolio = {};
 		$stocks = cloneDeep($stock_data);
 		x = 0;
-		run_game(times_to_run, delay);
+		run_game($times_to_run, $delay);
 	}
 	onMount(() => {
 		run_game = (times_to_run, delay_ms) => {
@@ -57,7 +55,7 @@
 			<InfoModal />
 		</div>
 		{#if !started}
-			<Button on:click={() => run_game(times_to_run, delay)}>Start Game</Button>
+			<Button on:click={() => run_game($times_to_run, $delay)}>Start Game</Button>
 		{/if}
 		{#if finished}
 			<Button on:click={() => new_game()}>Start New Game</Button>
@@ -66,12 +64,12 @@
 			<Button on:click={() => continue_game()}>Continue Current Game</Button>
 		{/if}
 		{#if started}
-			Day {x + 1} of {times_to_run + 1}
+			Day {x + 1} of {$times_to_run + 1}
 		{/if}
 	</div>
 	{#if started}
 		<div use:draggable={{}}>
-			<Controls />
+			<Controls in_progress={in_progress} />
 		</div>
 		<div use:draggable={{}}>
 			<Portfolio />
