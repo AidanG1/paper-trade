@@ -18,7 +18,7 @@
 	let finished = false;
 	let x = 0;
 	let times_to_run = 29;
-	let delay = 10;
+	let delay = 2000;
 	function continue_game() {
 		times_to_run += x;
 		run_game(times_to_run, delay);
