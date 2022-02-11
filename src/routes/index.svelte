@@ -3,5 +3,7 @@
 </script>
 
 <Nav />
-<h1>Welcome to Paper Trading</h1>
-<h2>Put a cool SVG animation here</h2>
+<div class="container">
+	<h1>Welcome to Paper Trading</h1>
+	<h2>Put a cool SVG animation here</h2>
+</div>
