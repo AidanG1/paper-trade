@@ -3,15 +3,17 @@
 	import { fly } from 'svelte/transition';
 	import { draggable } from '@neodrag/svelte';
 	import { balance, portfolio, stocks, stock_data, times_to_run, delay } from '../game/stockStore';
-	import cloneDeep from 'lodash.cloneDeep';
+	import cloneDeep from 'lodash/cloneDeep';
 	import { play_game } from '../game/game';
 	import Dashboard from '../components/Dashboard.svelte';
 	import Controls from '../components/Controls.svelte';
+	import Settings from '../components/Settings.svelte';
 	import InfoModal from '../components/InfoModal.svelte';
 	import Portfolio from '../components/Portfolio.svelte';
 	import { Button } from 'spaper';
 	let run_game = (times_to_run, delay_ms) => {
 		return;
+		j;
 	};
 	let started = false;
 	let in_progress = false;
@@ -66,9 +68,12 @@
 			<Button on:click={() => continue_game()}>Continue Current Game</Button>
 		{/if}
 	</div>
+	<div use:draggable={{}}>
+		<Settings />
+	</div>
 	{#if started}
 		<div use:draggable={{}}>
-			<Controls {in_progress} />
+			<Controls />
 		</div>
 		<div use:draggable={{}}>
 			<Portfolio />

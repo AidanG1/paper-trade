@@ -1,7 +1,7 @@
 import { writable, readable, derived } from 'svelte/store'
 import { tweened } from 'svelte/motion';
 import { cubicOut } from 'svelte/easing';
-import cloneDeep from 'lodash.cloneDeep'
+import cloneDeep from 'lodash/cloneDeep';
 
 export let portfolio = writable({});
 export let balance = tweened(100.0);
