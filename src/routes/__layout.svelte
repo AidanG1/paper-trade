@@ -1,3 +1,3 @@
-<main class="container-lg">
+<main class="container-lg padding-small">
 	<slot />
 </main>

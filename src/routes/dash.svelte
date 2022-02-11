@@ -11,36 +11,34 @@
 	let ticker = 'T';
 </script>
 
-<main>
-	<Nav />
-	<div class="row">
-		<div class="padding-small col">
-			<h2>Paper Trading Dash</h2>
-			<Game />
-		</div>
-		{#if !$game_state.in_progress}
-			<div class="col">
-				<Settings />
-			</div>
-		{/if}
+<Nav />
+<div class="row">
+	<div class="padding-small col">
+		<h2>Paper Trading Dash</h2>
+		<Game />
 	</div>
-	{#if $game_state.started}
-		<div class="row">
-			<div class="col-3 col">
-				<Select label="Chart Ticker" bind:value={ticker}>
-					{#each Object.keys($prices) as stock_ticker}
-						<option value={stock_ticker}>{stock_ticker}</option>
-					{/each}
-				</Select>
-				<BuySell {ticker} />
-				<Portfolio />
-			</div>
-			<div class="col-9 col">
-				<Chart {ticker} />
-			</div>
+	{#if !$game_state.in_progress}
+		<div class="col">
+			<Settings />
 		</div>
 	{/if}
-</main>
+</div>
+{#if $game_state.started}
+	<div class="row">
+		<div class="col-3 col">
+			<Select label="Chart Ticker" bind:value={ticker}>
+				{#each Object.keys($prices) as stock_ticker}
+					<option value={stock_ticker}>{stock_ticker}</option>
+				{/each}
+			</Select>
+			<BuySell {ticker} />
+			<Portfolio />
+		</div>
+		<div class="col-9 col">
+			<Chart {ticker} />
+		</div>
+	</div>
+{/if}
 
 <style>
 	h2 {
