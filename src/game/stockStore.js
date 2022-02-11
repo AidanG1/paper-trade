@@ -1,10 +1,11 @@
 import { writable, readable, derived } from 'svelte/store'
+import { cloneDeep } from 'lodash';
 
 export let portfolio = writable({});
 export let balance = writable(100);
 export let dark_theme = writable(true)
 export let purchase_size = writable(1);
-let stock_info = {
+const stock_info = {
     T: {
         company: 'AT&T',
         ticker: 'T',
@@ -58,8 +59,8 @@ let stock_info = {
         boost_regressor: 0.04,
     },
 }
-export let stocks = writable(stock_info)
-export const stock_data = readable(stock_info)
+export let stocks = writable(cloneDeep(stock_info))
+export const stock_data = readable(cloneDeep(stock_info))
 export const net_worth = derived([balance, portfolio, stocks], ([$balance, $portfolio, $stocks]) => {
     let net_worth = parseFloat($balance)
     for (let ticker in $portfolio) {

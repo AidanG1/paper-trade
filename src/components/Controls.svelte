@@ -19,7 +19,7 @@
 		if (purchase_size_input < 1) {
 			purchase_size_input = 1;
 		}
-		$purchase_size = purchase_size_input;
+		$purchase_size = parseInt(purchase_size_input);
 	}
 	$: {
 		change_classes(layout_class);
