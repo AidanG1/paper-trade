@@ -6,6 +6,7 @@
 	import Dashboard from '../components/Dashboard.svelte';
 	import Controls from '../components/Controls.svelte';
 	import InfoModal from '../components/InfoModal.svelte';
+	import Portfolio from '../components/Portfolio.svelte';
 	import { Button } from 'spaper';
 
 	function get_prices(stocks) {
@@ -28,7 +29,6 @@
 	let stock_info = get_stock_info(stocks);
 	onMount(() => {
 		run_game = (times_to_run, delay_ms) => {
-			console.log('hi');
 			started = true;
 			stocks = play_game(stocks);
 			let x = 0;
@@ -53,6 +53,9 @@
 	{#if started}
 		<div>
 			<Controls />
+		</div>
+		<div>
+			<Portfolio />
 		</div>
 		<div in:fly>
 			{#each stock_info as info, index}

@@ -20,7 +20,7 @@ export function get_price(stock, market_day) {
     // stock correlation of 1 means that the stock moves exactly with the market
     // if the stock correlation is less than one there is added randomness.
     // correlation multiplier acts similar to beta in the real stock market
-    let random_correlation = 1 + (randn_bm() + stock.boost) / (stock.correlation) / 5
+    let random_correlation = 1 + (randn_bm() / 2 + stock.boost) / (stock.correlation) / 4
     let correlated_market = 1 + (market_day - 1) * (random_correlation * stock.correlation_multiplier)
     if (correlated_market <= 0) {
         correlated_market = 0.02
@@ -32,10 +32,14 @@ export function get_price(stock, market_day) {
         price_change = correlated_market
     } else {
         stock.boost += stock.boost_regressor
+        correlated_market = 1 / (2 - correlated_market) // scale so that 10% down is not 10% down and becomes matchable with 10% up
         price_change = correlated_market
     }
     stock.price_change = price_change
     price = (price_change * stock.current_price).toFixed(2)
+    if (price < 1) {
+        stock.boost += 10 * stock.boost_regressor
+    }
     if (price < 0.05) {
         price = 0.05
     }
