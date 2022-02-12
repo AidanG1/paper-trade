@@ -4,6 +4,7 @@
 	import Portfolio from './Portfolio.svelte';
 	import { Checkbox } from 'spaper';
 	import { prices } from '../game/stockStore';
+	import NetWorthChart from './NetWorthChart.svelte';
 
 	const price_tickers = Object.keys($prices);
 	let tickers = [...price_tickers];
@@ -15,6 +16,7 @@
 			<Checkbox label={ticker} value={ticker} bind:group={tickers} />
 		{/each}
 		<Portfolio />
+		<NetWorthChart />
 	</div>
 	<div class="col-9 col">
 		<MultiChart {tickers} />

@@ -1,7 +1,6 @@
 <script>
 	import SkApex from './SKApex.svelte';
 	import { dark_theme, stocks } from '../game/stockStore';
-	import { onMount } from 'svelte';
 
 	export let ticker = '';
 
@@ -51,7 +50,7 @@
 		options.series[0].data = stock.price_history;
 		options.xaxis.categories = [...Array(stock.price_history.length).keys()];
 		options.colors = [
-			stock.current_price > stock.price_history[0]
+			stock.current_price >= stock.price_history[0]
 				? '#6aa84f'
 				: '#cc0000'
 		];
@@ -64,6 +63,7 @@
 		options = options;
 	}
 	$: {
+		console.log(ticker)
 		update_data($stocks[ticker], $dark_theme);
 	}
 </script>

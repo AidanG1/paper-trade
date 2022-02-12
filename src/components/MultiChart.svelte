@@ -1,7 +1,6 @@
 <script>
 	import SkApex from './SKApex.svelte';
 	import { dark_theme, stocks } from '../game/stockStore';
-	import { onMount } from 'svelte';
 
 	export let tickers = [];
 
@@ -44,6 +43,7 @@
 		options = options;
 	}
 	$: {
+		console.log(tickers)
 		update_data($stocks, $dark_theme);
 	}
 </script>

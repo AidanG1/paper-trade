@@ -2,8 +2,9 @@
 	import Chart from './Chart.svelte';
 	import BuySell from './BuySell.svelte';
 	import Portfolio from './Portfolio.svelte';
-	import { Alert, Select } from 'spaper';
+	import { Select } from 'spaper';
 	import { prices } from '../game/stockStore';
+	import NetWorthChart from './NetWorthChart.svelte';
 	let ticker = 'T';
 </script>
 
@@ -16,6 +17,7 @@
 		</Select>
 		<BuySell {ticker} />
 		<Portfolio />
+		<NetWorthChart />
 	</div>
 	<div class="col-9 col">
 		<Chart {ticker} />

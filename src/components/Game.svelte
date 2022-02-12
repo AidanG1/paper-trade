@@ -30,6 +30,7 @@
 		$portfolio = {};
 		$stocks = cloneDeep($stock_data);
 		$day_counter = 0;
+		$net_worth_history = [];
 		run_game($times_to_run, $delay);
 	}
 	function game_day() {
