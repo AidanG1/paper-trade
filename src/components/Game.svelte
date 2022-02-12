@@ -76,4 +76,3 @@
 	<Button on:click={() => new_game()}>Start New Game</Button>
 	<Button on:click={() => continue_game()}>Continue Current Game</Button>
 {/if}
-<h1>{$day_counter} {$times_to_run}</h1>
