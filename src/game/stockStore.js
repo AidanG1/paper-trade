@@ -8,7 +8,7 @@ export let dark_theme = writable(true)
 export let purchase_size = writable(1);
 export let delay = spring(2000)
 export let day_counter = spring(0)
-export let times_to_run = spring(29)
+export let times_to_run = writable(29)
 export let game_state = writable({ started: false, in_progress: false, ended: false })
 const stock_info = {
     T: {
@@ -67,6 +67,8 @@ const stock_info = {
 export let prices = spring(prices_from_stock_store(stock_info))
 export let stocks = writable(cloneDeep(stock_info))
 export const stock_data = readable(cloneDeep(stock_info))
+
+
 export const net_worth = derived([balance, portfolio, prices], ([$balance, $portfolio, $prices]) => {
     let net_worth = parseFloat($balance)
     for (let ticker in $portfolio) {
@@ -74,3 +76,4 @@ export const net_worth = derived([balance, portfolio, prices], ([$balance, $port
     }
     return +(net_worth.toFixed(2))
 });
+export let net_worth_history = writable([])

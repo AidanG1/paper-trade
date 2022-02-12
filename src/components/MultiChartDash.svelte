@@ -1,0 +1,27 @@
+<script>
+	import MultiChart from './MultiChart.svelte';
+	import BuySell from './BuySell.svelte';
+	import Portfolio from './Portfolio.svelte';
+	import { Checkbox } from 'spaper';
+	import { prices } from '../game/stockStore';
+
+	const price_tickers = Object.keys($prices);
+	let tickers = [...price_tickers];
+</script>
+
+<div class="row">
+	<div class="col-3 col form-group">
+		{#each price_tickers as ticker}
+			<Checkbox label={ticker} value={ticker} bind:group={tickers} />
+		{/each}
+		<Portfolio />
+	</div>
+	<div class="col-9 col">
+		<MultiChart {tickers} />
+	</div>
+	<div>
+		{#each tickers as ticker}
+			<BuySell {ticker} />
+		{/each}
+	</div>
+</div>

@@ -1,49 +1,53 @@
 <script>
 	import SkApex from './SKApex.svelte';
+	import { dark_theme, stocks } from '../game/stockStore';
+	import { onMount } from 'svelte';
 
-	export let prices = [];
-	export let ticker = [];
-	export let time = 0;
-	$: {
-		update_data(prices);
-	}
-	function update_data(prices) {
-		options.series.data = prices;
-		options.xaxis.categories = [...Array(prices.length).keys()];
-		options = options;
-	}
+	export let tickers = [];
+
 	let options = {
 		chart: {
-			type: 'line',
-			height: 350,
+			type: 'area',
 			zoom: {
 				enabled: false
 			}
 		},
 		series: [
 			{
-				name: ticker,
-				data: prices
+				name: 'Hi',
+				data: [0]
 			}
 		],
 		xaxis: {
-			categories: [...Array(prices.length).keys()]
+			type: 'numeric',
+			categories: [0],
+			tickPlacement: 'on'
 		},
 		stroke: {
 			curve: 'straight'
 		},
+		title: {
+			text: tickers.join(' & ')
+		},
 		theme: {
 			mode: 'dark',
-			palette: 'palette4',
-			// monochrome: {
-			// 	enabled: false,
-			// 	color: '#255aee',
-			// 	shadeTo: 'light',
-			// 	shadeIntensity: 0.65
-			// }
+			palette: 'palette4'
 		}
 	};
+	function update_data(stocks, dark_theme) {
+		options.series = [];
+		for (let ticker of tickers) {
+			options.series.push({ data: stocks[ticker].price_history, name: ticker });
+		}
+		options.xaxis.categories = [...Array(stocks.T.price_history.length).keys()];
+		options.theme.mode = dark_theme ? 'dark' : 'light';
+		options = options;
+	}
+	$: {
+		update_data($stocks, $dark_theme);
+	}
 </script>
 
-{time} {prices}
-<SkApex {options} />
+<div>
+	<SkApex {options} />
+</div>

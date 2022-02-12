@@ -8,8 +8,6 @@
 	let options = {
 		chart: {
 			type: 'area',
-			// height: height,
-			// width: width,
 			zoom: {
 				enabled: false
 			}
@@ -46,13 +44,6 @@
 		},
 		theme: {
 			mode: 'dark'
-			// palette: 'palette4'
-			// monochrome: {
-			// 	enabled: false,
-			// 	color: '#255aee',
-			// 	shadeTo: 'light',
-			// 	shadeIntensity: 0.65
-			// }
 		}
 	};
 	function update_data(stock, dark_theme) {
@@ -75,11 +66,6 @@
 	$: {
 		update_data($stocks[ticker], $dark_theme);
 	}
-	// stocks.subscribe((value) => {
-	// 	console.log(value);
-	// 	update_data(value[ticker]);
-	// });
-	// onMount(() => {});
 </script>
 
 <div>

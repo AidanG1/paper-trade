@@ -21,12 +21,22 @@
 	});
 
 	let times_to_run_input = $times_to_run;
+	let ttr_initial = $times_to_run;
+	function ttr_in_progress(game_state_in_progress) {
+		ttr_initial = $times_to_run;
+	}
 	$: {
+		ttr_in_progress($game_state.in_progress);
+	}
+	function ttr(ttri) {
 		if ($game_state.started) {
-			$times_to_run += times_to_run_input;
+			$times_to_run = ttri + ttr_initial;
 		} else {
-			$times_to_run = times_to_run_input;
+			$times_to_run = ttri;
 		}
+	}
+	$: {
+		ttr(times_to_run_input);
 	}
 	let delay_input = $delay;
 	$: {

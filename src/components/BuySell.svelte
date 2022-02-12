@@ -31,7 +31,7 @@
 	}
 	function sell(amount) {
 		if ((ticker in $portfolio) & ($portfolio[ticker] >= amount)) {
-			balance.set((parseFloat($balance) + amount * $prices[ticker]));
+			balance.set(parseFloat($balance) + amount * $prices[ticker]);
 			$portfolio[ticker] -= amount;
 			if ($portfolio[ticker] === 0) {
 				delete $portfolio[ticker];
@@ -44,9 +44,7 @@
 		}
 	}
 </script>
-{#if alert_message}
-	<Alert type="danger" dismissible>{alert_message}</Alert>
-{/if}
+
 <Button on:click={buy($purchase_size)} type="success">
 	Buy {$purchase_size}
 	{share} of {ticker}
@@ -55,3 +53,6 @@
 	Sell {$purchase_size}
 	{share} of {ticker}
 </Button>
+{#if alert_message}
+	<Alert type="danger" dismissible>{alert_message}</Alert>
+{/if}

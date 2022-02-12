@@ -1,14 +1,13 @@
 <script>
-	import { prices, game_state } from '../game/stockStore';
+	import { game_state } from '../game/stockStore';
 	import GameEnded from '../components/GameEnded.svelte';
 	import Game from '../components/Game.svelte';
-	import Chart from '../components/Chart.svelte';
-	import BuySell from '../components/BuySell.svelte';
 	import Nav from '../components/Nav.svelte';
 	import Settings from '../components/Settings.svelte';
-	import Portfolio from '../components/Portfolio.svelte';
-	import { Alert, Select } from 'spaper';
-	let ticker = 'T';
+	import ChartDash from '../components/ChartDash.svelte';
+	import MultiChartDash from '../components/MultiChartDash.svelte';
+	import { Switch } from 'spaper';
+	let use_multichart = false;
 </script>
 
 <Nav />
@@ -25,22 +24,20 @@
 			<Settings />
 		</div>
 	{/if}
+	{#if $game_state.started}
+		<div class="form-group inline">
+			<Switch inline bind:checked={use_multichart}
+				>{use_multichart ? 'Single Chart' : 'Multi Chart'}</Switch
+			>
+		</div>
+	{/if}
 </div>
 {#if $game_state.started}
-	<div class="row">
-		<div class="col-3 col">
-			<Select label="Chart Ticker" bind:value={ticker}>
-				{#each Object.keys($prices) as stock_ticker}
-					<option value={stock_ticker}>{stock_ticker}</option>
-				{/each}
-			</Select>
-			<BuySell {ticker} />
-			<Portfolio />
-		</div>
-		<div class="col-9 col">
-			<Chart {ticker} />
-		</div>
-	</div>
+	{#if use_multichart}
+		<MultiChartDash />
+	{:else}
+		<ChartDash />
+	{/if}
 {/if}
 
 <style>
