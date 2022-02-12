@@ -41,7 +41,7 @@
 		<option value={59}>60</option>
 		<option value={89}>90</option>
 	</Select>
-	<Select label="Day Delay" bind:value={delay_input}>
+	<Select label="Round Delay" bind:value={delay_input}>
 		<option value={500}>Very Short</option>
 		<option value={1000}>Short</option>
 		<option value={2000}>Normal</option>

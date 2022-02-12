@@ -4,6 +4,7 @@
 	import { stocks, game_state } from '../game/stockStore';
 	import Dashboard from '../components/Dashboard.svelte';
 	import Game from '../components/Game.svelte';
+	import GameEnded from '../components/GameEnded.svelte';
 	import Controls from '../components/Controls.svelte';
 	import Nav from '../components/Nav.svelte';
 	import Settings from '../components/Settings.svelte';
@@ -22,6 +23,9 @@
 		<div class="border border-warning inline-block" use:draggable={{}}>
 			<Settings />
 		</div>
+	{/if}
+	{#if $game_state.ended}
+		<GameEnded />
 	{/if}
 	{#if $game_state.started}
 		<div class="border border-warning inline-block" use:draggable={{}}>

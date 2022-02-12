@@ -1,18 +1,21 @@
 <script>
 	import { prices, game_state } from '../game/stockStore';
-	import Dashboard from '../components/Dashboard.svelte';
+	import GameEnded from '../components/GameEnded.svelte';
 	import Game from '../components/Game.svelte';
 	import Chart from '../components/Chart.svelte';
 	import BuySell from '../components/BuySell.svelte';
 	import Nav from '../components/Nav.svelte';
 	import Settings from '../components/Settings.svelte';
 	import Portfolio from '../components/Portfolio.svelte';
-	import { Select } from 'spaper';
+	import { Alert, Select } from 'spaper';
 	let ticker = 'T';
 </script>
 
 <Nav />
 <div class="row">
+	{#if $game_state.ended}
+		<GameEnded />
+	{/if}
 	<div class="padding-small col">
 		<h2>Paper Trading Dash</h2>
 		<Game />

@@ -29,7 +29,11 @@
 		$portfolio = {};
 		$stocks = cloneDeep($stock_data);
 		$day_counter = 0;
-		run_game($times_to_run, $delay);
+		let ttr = 29;
+		if ([14, 59, 89].contains($times_to_run)) {
+			ttr = $times_to_run;
+		}
+		run_game(ttr, $delay);
 	}
 	onMount(() => {
 		run_game = (times_to_run, delay_ms) => {
@@ -45,6 +49,11 @@
 					if (++$day_counter >= times_to_run) {
 						$game_state.in_progress = false;
 						$game_state.ended = true;
+						document.getElementById('game-ended-alert').scrollIntoView({
+							block: 'start',
+							behavior: 'smooth',
+							inline: 'center'
+						});
 						window.clearInterval(intervalID);
 					}
 				}, delay_ms);
@@ -56,7 +65,11 @@
 {#if !$game_state.started}
 	<Button on:click={() => run_game($times_to_run, $delay)}>Start Game</Button>
 {:else}
-	<Progress value={Math.round((100 * ($day_counter + 1)) / ($times_to_run + 1))} type="secondary" showValue />
+	<Progress
+		value={Math.round((100 * ($day_counter + 1)) / ($times_to_run + 1))}
+		type="secondary"
+		showValue
+	/>
 	<!-- Day {$day_counter + 1} of {$times_to_run + 1} -->
 {/if}
 {#if $game_state.ended}
