@@ -2,7 +2,7 @@
 	import Nav from '../components/Nav.svelte';
 	import { onMount } from 'svelte';
 	let style = `
-    --scale: ${3*Math.random()};
+    --scale: ${2*Math.random()};
     --rotate: ${180-360*Math.random()}deg;
     --duration: ${10*Math.random()}s;
 	`;
@@ -16,7 +16,7 @@
 			--rotate: ${180-360*Math.random()}deg;
 			--duration: ${5*Math.random()+1}s;
 			`;
-			if (++x >= 20) {
+			if (++x >= 10) {
 				window.clearInterval(intervalID);
 			}
 		}, 1000);
@@ -52,6 +52,6 @@
 	}
 
 	#money-div {
-		width: 120%;
+		width: 100%;
 	}
 </style>
