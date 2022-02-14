@@ -4,6 +4,7 @@
 	let style = `
     --scale: ${3*Math.random()};
     --rotate: ${180-360*Math.random()}deg;
+    --duration: ${10*Math.random()}s;
 	`;
 	onMount(() => {
 		let x = 0;
@@ -13,6 +14,7 @@
 			style = `
 			--scale: ${3*Math.random()};
 			--rotate: ${180-360*Math.random()}deg;
+			--duration: ${5*Math.random()+1}s;
 			`;
 			if (++x >= 20) {
 				window.clearInterval(intervalID);
@@ -45,7 +47,7 @@
 	.money-svg {
 		/* --scale: 2;
 		--rotate: 90deg; */
-		animation: moveToRight 5s linear infinite;
+		animation: moveToRight var(--duration) linear infinite;
 		transition: 300ms linear;
 	}
 
