@@ -1,8 +1,3 @@
-<script>
-    import Nav from '../components/Nav.svelte'
-</script>
-
-<Nav />
 <div class="container">
     <h1>Paper Trading</h1>
     <h2>Created by Aidan Gerber</h2>

@@ -4,11 +4,10 @@ import { spring } from 'svelte/motion';
 import { prices_from_stock_store } from './game'
 import cloneDeep from 'lodash/cloneDeep.js';
 export let portfolio = writable({});
-const starting_balance = 100
-export let balance = spring(starting_balance);
+export let balance = writable(100);
 export let purchase_size = writable(1); // this can be a number of the word 'max'
-export let delay = spring(2000)
-export let day_counter = spring(0)
+export let delay = writable(2000)
+export let day_counter = writable(0)
 export let times_to_run = writable(30)
 export let game_state = writable({ started: false, in_progress: false, ended: false })
 const stock_info = {
@@ -20,7 +19,7 @@ const stock_info = {
         price_history: [10],
         price_change: 0,
         volatility: 1.5,
-        correlation_multiplier: 1.5,
+        correlation_multiplier: 1.3,
         correlation: 0.6,
         boost: 0,
         boost_regressor: 0.01,
@@ -64,16 +63,31 @@ const stock_info = {
         current_price: 20,
         price_history: [20],
         price_change: 0,
-        volatility: 5,
-        correlation_multiplier: 1.5,
+        volatility: 4,
+        correlation_multiplier: 1,
         correlation: 0.01,
         boost: -0.02,
         boost_regressor: 0.04,
         dividend: 0,
         dividend_frequency: 100,
     },
+    BRKB: {
+        company: 'Berkshire Hathaway',
+        ticker: 'BRKB',
+        sector: 'Consumer Discretionary',
+        current_price: 15,
+        price_history: [15],
+        price_change: 0,
+        volatility: 0.8,
+        correlation_multiplier: 1,
+        correlation: 0.01,
+        boost: 0.01,
+        boost_regressor: 0.02,
+        dividend: 0.3,
+        dividend_frequency: 1,
+    },
 }
-export let prices = spring(prices_from_stock_store(stock_info))
+export let prices = writable(prices_from_stock_store(stock_info))
 export let stocks = writable(cloneDeep(stock_info))
 export const stock_data = readable(cloneDeep(stock_info))
 
@@ -85,15 +99,19 @@ export const net_worth = derived([balance, portfolio, prices], ([$balance, $port
     }
     return +(net_worth.toFixed(2))
 });
-export let net_worth_history = writable([starting_balance])
+export let net_worth_history = writable([])
 
 
-// https://rodneylab.com/using-local-storage-sveltekit/
-const defaultTheme = true;
-const initialTheme = browser ? window.localStorage.getItem('theme') ?? defaultTheme : defaultTheme;
-export let dark_theme = writable(initialTheme)
-dark_theme.subscribe((value) => {
-    if (browser) {
-        window.localStorage.setItem('theme', value);
+// https://natclark.com/tutorials/svelte-sync-localstorage-with-store/
+let theme = true;
+if (typeof localStorage !== `undefined`) {
+    if (localStorage.getItem(`theme`) !== null) {
+        theme = localStorage.getItem(`theme`);
+    }
+}
+export let dark_theme = writable(theme)
+dark_theme.subscribe((newValue) => {
+    if (typeof localStorage !== `undefined`) {
+        localStorage.setItem(`theme`, newValue);
     }
 });

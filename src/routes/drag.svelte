@@ -7,15 +7,11 @@
     import Game from '../components/Game.svelte'
     import GameEnded from '../components/GameEnded.svelte'
     import DragControls from '../components/DragControls.svelte'
-    import Nav from '../components/Nav.svelte'
     import Settings from '../components/Settings.svelte'
     import Portfolio from '../components/Portfolio.svelte'
 </script>
 
 <main>
-    <div use:draggable={{}}>
-        <Nav />
-    </div>
     <div class="border border-warning inline-block" use:draggable={{}}>
         <h2>Paper Trading Draggable</h2>
         <Game />
@@ -25,9 +21,11 @@
             <Settings />
         </div>
     {/if}
-    {#if $game_state.ended}
-        <GameEnded />
-    {/if}
+    <span id="game-ended-alert">
+        {#if $game_state.ended}
+            <GameEnded />
+        {/if}
+    </span>
     {#if $game_state.started}
         <div class="border border-warning inline-block" use:draggable={{}}>
             <DragControls />

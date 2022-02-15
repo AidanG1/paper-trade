@@ -61,11 +61,13 @@
                     if (++$day_counter >= times_to_run) {
                         $game_state.in_progress = false
                         $game_state.ended = true
-                        // document.getElementById('game-ended-alert').scrollIntoView({
-                        // 	block: 'start',
-                        // 	behavior: 'smooth',
-                        // 	inline: 'center'
-                        // });
+                        document
+                            .getElementById('game-ended-alert')
+                            .scrollIntoView({
+                                block: 'start',
+                                behavior: 'smooth',
+                                inline: 'center',
+                            })
                         window.clearInterval(intervalID)
                     }
                 }, delay_ms)

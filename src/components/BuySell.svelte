@@ -19,19 +19,21 @@
         }
     }
     function buy(amount) {
-        ps = amount * $prices[ticker]
-        if (ps < $balance) {
-            balance.set($balance - ps)
-            if (ticker in $portfolio) {
-                $portfolio[ticker] += amount
+        if (amount > 0) {
+            ps = amount * $prices[ticker]
+            if (ps < $balance) {
+                balance.set($balance - ps)
+                if (ticker in $portfolio) {
+                    $portfolio[ticker] += amount
+                } else {
+                    $portfolio[ticker] = amount
+                }
             } else {
-                $portfolio[ticker] = amount
+                alert_message = `You cannot afford to buy ${amount} ${share} of ${ticker}`
+                setTimeout(() => {
+                    alert_message = ''
+                }, 3000)
             }
-        } else {
-            alert_message = `You cannot afford to buy ${amount} ${share} of ${ticker}`
-            setTimeout(() => {
-                alert_message = ''
-            }, 3000)
         }
     }
     function sell(amount) {

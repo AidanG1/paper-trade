@@ -2,7 +2,7 @@
     import { Select } from 'spaper'
     import { times_to_run, delay, game_state } from '../game/stockStore'
 
-    let times_to_run_input = $times_to_run
+    let times_to_run_input = 30
     let ttr_initial = $times_to_run
     function ttr_in_progress(game_state_in_progress) {
         ttr_initial = $times_to_run
