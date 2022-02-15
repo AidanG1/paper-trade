@@ -4,7 +4,8 @@ import { spring } from 'svelte/motion';
 import { prices_from_stock_store } from './game'
 import cloneDeep from 'lodash/cloneDeep.js';
 export let portfolio = writable({});
-export let balance = spring(100);
+const starting_balance = 100
+export let balance = spring(starting_balance);
 export let purchase_size = writable(1); // this can be a number of the word 'max'
 export let delay = spring(2000)
 export let day_counter = spring(0)
@@ -23,6 +24,8 @@ const stock_info = {
         correlation: 0.6,
         boost: 0,
         boost_regressor: 0.01,
+        dividend: 1,
+        dividend_frequency: 8,
     },
     TMUS: {
         company: 'T-Mobile',
@@ -36,6 +39,8 @@ const stock_info = {
         correlation: 0.6,
         boost: 0.01,
         boost_regressor: 0.01,
+        dividend: 0.8,
+        dividend_frequency: 5,
     },
     NET: {
         company: 'Cloudflare',
@@ -47,8 +52,10 @@ const stock_info = {
         volatility: 2.5,
         correlation_multiplier: 1.5,
         correlation: 0.45,
-        boost: 0.03,
-        boost_regressor: 0.035,
+        boost: 0.05,
+        boost_regressor: 0.03,
+        dividend: 0,
+        dividend_frequency: 100,
     },
     GME: {
         company: 'GameStop',
@@ -62,6 +69,8 @@ const stock_info = {
         correlation: 0.01,
         boost: -0.02,
         boost_regressor: 0.04,
+        dividend: 0,
+        dividend_frequency: 100,
     },
 }
 export let prices = spring(prices_from_stock_store(stock_info))
@@ -76,7 +85,7 @@ export const net_worth = derived([balance, portfolio, prices], ([$balance, $port
     }
     return +(net_worth.toFixed(2))
 });
-export let net_worth_history = writable([])
+export let net_worth_history = writable([starting_balance])
 
 
 // https://rodneylab.com/using-local-storage-sveltekit/
