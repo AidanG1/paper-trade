@@ -1,68 +1,49 @@
 <script>
-	import { Select, Switch } from 'spaper';
-	import { dark_theme, times_to_run, delay, game_state } from '../game/stockStore';
-	import { onMount } from 'svelte';
-	let dark_theme_input = $dark_theme;
-	let change_html = (theme) => {
-		return;
-	};
-	$: {
-		$dark_theme = dark_theme_input;
-		change_html($dark_theme);
-	}
-	onMount(() => {
-		change_html = (theme) => {
-			if (theme) {
-				document.getElementsByTagName('html')[0].classList.add('dark');
-			} else {
-				document.getElementsByTagName('html')[0].classList.remove('dark');
-			}
-		};
-	});
+    import { Select } from 'spaper'
+    import { times_to_run, delay, game_state } from '../game/stockStore'
 
-	let times_to_run_input = $times_to_run;
-	let ttr_initial = $times_to_run;
-	function ttr_in_progress(game_state_in_progress) {
-		ttr_initial = $times_to_run;
-	}
-	$: {
-		ttr_in_progress($game_state.in_progress);
-	}
-	function ttr(ttri) {
-		if ($game_state.started) {
-			$times_to_run = ttri + ttr_initial;
-		} else {
-			$times_to_run = ttri;
-		}
-	}
-	$: {
-		ttr(times_to_run_input);
-	}
-	let delay_input = $delay;
-	$: {
-		$delay = delay_input;
-	}
+    let times_to_run_input = $times_to_run
+    let ttr_initial = $times_to_run
+    function ttr_in_progress(game_state_in_progress) {
+        ttr_initial = $times_to_run
+    }
+    $: {
+        ttr_in_progress($game_state.in_progress)
+    }
+    function ttr(ttri) {
+        if ($game_state.started) {
+            $times_to_run = ttri + ttr_initial
+        } else {
+            $times_to_run = ttri
+        }
+    }
+    $: {
+        ttr(times_to_run_input)
+    }
+    let delay_input = $delay
+    $: {
+        $delay = delay_input
+    }
 </script>
 
 <div class="form-group">
-	<Select label="Times to Run" bind:value={times_to_run_input}>
-		<option value={14}>15</option>
-		<option value={29}>30</option>
-		<option value={59}>60</option>
-		<option value={89}>90</option>
-	</Select>
-	<Select label="Round Delay" bind:value={delay_input}>
-		<option value={500}>Very Short</option>
-		<option value={1000}>Short</option>
-		<option value={2000}>Normal</option>
-		<option value={3500}>Long</option>
-		<option value={6000}>Very Long</option>
-	</Select>
-	<Switch bind:checked={dark_theme_input}>Theme</Switch>
+    <Select label="Times to Run" bind:value={times_to_run_input}>
+        <option value={15}>15</option>
+        <option value={30}>30</option>
+        <option value={60}>60</option>
+        <option value={90}>90</option>
+    </Select>
+    <Select label="Round Delay" bind:value={delay_input}>
+        <option value={500}>Very Short</option>
+        <option value={1000}>Short</option>
+        <option value={2000}>Normal</option>
+        <option value={3500}>Long</option>
+        <option value={6000}>Very Long</option>
+    </Select>
 </div>
 
 <style>
-	.form-group {
-		float: left;
-	}
+    .form-group {
+        float: left;
+    }
 </style>

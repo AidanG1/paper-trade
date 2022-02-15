@@ -2,6 +2,7 @@
 	import Chart from './Chart.svelte';
 	import BuySell from './BuySell.svelte';
 	import Portfolio from './Portfolio.svelte';
+	import PurchaseSize from './PurchaseSize.svelte'
 	import { Select } from 'spaper';
 	import { prices } from '../game/stockStore';
 	import NetWorthChart from './NetWorthChart.svelte';
@@ -16,6 +17,7 @@
 			{/each}
 		</Select>
 		<BuySell {ticker} />
+		<PurchaseSize />
 		<Portfolio />
 		<NetWorthChart />
 	</div>

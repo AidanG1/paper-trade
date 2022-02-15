@@ -2,12 +2,13 @@
 	import MultiChart from './MultiChart.svelte';
 	import BuySell from './BuySell.svelte';
 	import Portfolio from './Portfolio.svelte';
+	import PurchaseSize from './PurchaseSize.svelte'
 	import { Checkbox } from 'spaper';
 	import { prices } from '../game/stockStore';
 	import NetWorthChart from './NetWorthChart.svelte';
 
 	const price_tickers = Object.keys($prices);
-	let tickers = [...price_tickers];
+	let tickers = ['T'];
 </script>
 
 <div class="row">
@@ -22,6 +23,7 @@
 		<MultiChart {tickers} />
 	</div>
 	<div>
+		<PurchaseSize></PurchaseSize>
 		{#each tickers as ticker}
 			<BuySell {ticker} />
 		{/each}

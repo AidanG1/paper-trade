@@ -1,18 +1,10 @@
 <script>
-	import { Select, Input } from 'spaper';
-	import { purchase_size } from '../game/stockStore';
+	import { Select } from 'spaper';
 	import { onMount } from 'svelte';
 	let layout_class = 3;
-	let purchase_size_input = $purchase_size;
 	let change_classes = (layout_class) => {
 		return;
 	};
-	$: {
-		if (purchase_size_input < 1) {
-			purchase_size_input = 1;
-		}
-		$purchase_size = parseInt(purchase_size_input);
-	}
 	$: {
 		change_classes(layout_class);
 	}
@@ -35,5 +27,4 @@
 		<option value={2}>Large</option>
 		<option value={1}>Huge</option>
 	</Select>
-	<Input label="Default Purchase Amount" type="number" bind:value={purchase_size_input} min="1" />
 </div>

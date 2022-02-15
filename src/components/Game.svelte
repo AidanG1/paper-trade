@@ -67,7 +67,7 @@
 	<Button on:click={() => run_game($times_to_run, $delay)}>Start Game</Button>
 {:else}
 	<Progress
-		value={Math.round((100 * ($day_counter + 1)) / ($times_to_run + 1))}
+		value={Math.round((100 * ($day_counter)) / ($times_to_run))}
 		type="secondary"
 		showValue
 	/>
