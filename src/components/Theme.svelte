@@ -1,5 +1,6 @@
 <script>
     import { Switch } from 'spaper'
+    import Mousetrap from 'mousetrap'
     import { dark_theme } from '../game/stockStore'
     import { onMount } from 'svelte'
     export let button_text = 'Theme'
@@ -21,6 +22,9 @@
                     .classList.remove('dark')
             }
         }
+        Mousetrap.bind('shift+t', function (e) {
+            dark_theme_input = !dark_theme_input
+        })
     })
 </script>
 

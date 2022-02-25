@@ -1,6 +1,8 @@
 <script>
     import { Input, Switch } from 'spaper'
     import { purchase_size } from '../game/stockStore'
+    import Mousetrap from 'mousetrap'
+    import { onMount } from 'svelte'
     let purchase_size_input = $purchase_size === 'max' ? 1 : $purchase_size
     let max_or_not = $purchase_size === 'max' ? true : false
     $: {
@@ -18,6 +20,11 @@
         max_or_not = false
         $purchase_size = parseInt(purchase_size_input)
     }
+    onMount(() => {
+        Mousetrap.bind(['shift+1', 'shift+2', 'shift+3', 'shift+4', 'shift+5'], function(e) {
+            
+        })
+    })
 </script>
 
 <div class="form-group">

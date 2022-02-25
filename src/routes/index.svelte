@@ -1,13 +1,19 @@
 <script>
     import { onMount } from 'svelte'
+    import { beforeNavigate } from '$app/navigation'
     let style = `
     --scale: ${2 * Math.random()};
     --rotate: ${180 - 360 * Math.random()}deg;
     --duration: ${10 * Math.random()}s;
 	`
+    let intervalID = ''
+
+    beforeNavigate(() => {
+        window.clearInterval(intervalID)
+    })
     onMount(() => {
         let x = 0
-        let intervalID = setInterval(() => {
+        intervalID = setInterval(() => {
             let moneyClone = document.getElementById('money').cloneNode()
             document.getElementById('money-div').appendChild(moneyClone)
             style = `

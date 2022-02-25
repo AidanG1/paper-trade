@@ -7,7 +7,6 @@
         prices,
     } from '../game/stockStore'
     export let ticker = ''
-    // export let price = 10;
     let ps = 0
     let alert_message = ''
     let share = 'share'
