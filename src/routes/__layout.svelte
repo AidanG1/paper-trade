@@ -1,6 +1,14 @@
+<script context="module">
+    /** @type {import('@sveltejs/kit').Load} */
+    export const load = async ({ url }) => ({ props: { url } })
+</script>
+
 <script>
     import { Navbar } from 'spaper'
     import Theme from '../components/Theme.svelte'
+    import Mousetrap from '../components/Mousetrap.svelte'
+    import PageTransition from '../components/PageTransition.svelte'
+    export let url
 </script>
 
 <Navbar split={false}>
@@ -13,8 +21,11 @@
         <li><a href="/calendar">Calendar</a></li>
         <li><a href="/about">About</a></li>
         <li><Theme button_text={''} /> Theme</li>
+        <Mousetrap />
     </ul>
 </Navbar>
 <main class="container-lg padding-small">
-    <slot />
+    <PageTransition {url}>
+        <slot />
+    </PageTransition>
 </main>

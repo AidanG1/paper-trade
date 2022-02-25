@@ -1,12 +1,20 @@
 <script>
     import { game_state } from '../game/stockStore'
+    import { onMount } from 'svelte'
     import GameEnded from '../components/GameEnded.svelte'
     import Game from '../components/Game.svelte'
     import Settings from '../components/Settings.svelte'
     import ChartDash from '../components/ChartDash.svelte'
     import MultiChartDash from '../components/MultiChartDash.svelte'
+    import Mousetrap from 'mousetrap'
     import { Switch } from 'spaper'
     let use_multichart = false
+
+    onMount(() => {
+        Mousetrap.bind(['shift+c+h'], function (e) {
+            use_multichart = !use_multichart
+        })
+    })
 </script>
 
 <div class="row">
